@@ -67,7 +67,7 @@ define-command -override -hidden dotnet-jump %{
 define-command -override dotnet-next-error -docstring 'Jump to the next dotnet error' %{
     evaluate-commands -try-client %opt{jumpclient} %{
         buffer '*dotnet*'
-        execute-keys "%opt{dotnet_current_error_line}ggl" "/^(?:\w:)?[^:\n]+:\d+:(?:\d+:)?%opt{dotnet_error_pattern}<ret>"
+        execute-keys "%opt{dotnet_current_error_line}ggl" / %opt{dotnet_error_pattern} <ret>
         dotnet-jump
     }
     try %{ evaluate-commands -client %opt{toolsclient} %{ execute-keys %opt{dotnet_current_error_line}g } }
@@ -76,7 +76,7 @@ define-command -override dotnet-next-error -docstring 'Jump to the next dotnet e
 define-command -override dotnet-previous-error -docstring 'Jump to the previous dotnet error' %{
     evaluate-commands -try-client %opt{jumpclient} %{
         buffer '*dotnet*'
-        execute-keys "%opt{dotnet_current_error_line}g" "<a-/>^(?:\w:)?[^:\n]+:\d+:(?:\d+:)?%opt{dotnet_error_pattern}<ret>"
+        execute-keys "%opt{dotnet_current_error_line}ggl" <a-/> %opt{dotnet_error_pattern} <ret>
         dotnet-jump
     }
     try %{ evaluate-commands -client %opt{toolsclient} %{ execute-keys %opt{dotnet_current_error_line}g } }
